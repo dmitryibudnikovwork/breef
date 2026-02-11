@@ -852,9 +852,10 @@
       submitBtn.disabled = true;
 
       try {
-        const formData = new FormData(e.target);
+        const formData = new FormData(form);
 
-        const response = await fetch(e.target.action, {
+        // Отправка только на Formspree
+        const response = await fetch('https://formspree.io/f/xaqdqplp', {
           method: 'POST',
           body: formData,
           headers: {
@@ -864,7 +865,7 @@
 
         if (response.ok) {
           showNotification('Заявка отправлена! Свяжемся в течение часа.');
-          e.target.reset();
+          form.reset();
           updateProgress();
         } else {
           const data = await response.json();
