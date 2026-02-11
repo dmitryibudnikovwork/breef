@@ -561,7 +561,8 @@
     </div>
 
     <div class="form-card">
-      <form id="briefForm" action="https://formspree.io/f/xaqdqplp" method="POST">
+      <form id="briefForm" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="23ffa358-96be-423d-9c4f-520e2a7f0595">
         <div class="form-section">
           <div class="section-title">
             <div class="section-icon">👤</div>
@@ -854,8 +855,8 @@
       try {
         const formData = new FormData(form);
 
-        // Отправка только на Formspree
-        const response = await fetch('https://formspree.io/f/xaqdqplp', {
+        // Отправка на Web3Forms
+        const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           body: formData,
           headers: {
