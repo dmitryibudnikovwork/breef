@@ -570,12 +570,12 @@
 
           <div class="form-group">
             <label>Ваше имя <span class="required">*</span></label>
-            <input type="text" name="name" placeholder="Иван Иванов" required />
+            <input type="text" name="Имя" placeholder="Иван Иванов" required />
           </div>
 
           <div class="form-group">
             <label>Контакт <span class="required">*</span></label>
-            <input type="text" name="contact" placeholder="@username или +79991234567" required />
+            <input type="text" name="Контакт" placeholder="@username или +79991234567" required />
             <div class="helper-text">Telegram, WhatsApp или номер телефона</div>
           </div>
         </div>
@@ -588,17 +588,17 @@
 
           <div class="form-group">
             <label>Название товара <span class="required">*</span></label>
-            <input type="text" name="product_name" placeholder="Беспроводные наушники TWS-200" required />
+            <input type="text" name="Название товара" placeholder="Беспроводные наушники TWS-200" required />
           </div>
 
           <div class="form-group">
             <label>Категория <span class="required">*</span></label>
-            <input type="text" name="category" placeholder="Электроника / Наушники" required />
+            <input type="text" name="Категория" placeholder="Электроника / Наушники" required />
           </div>
 
           <div class="form-group">
             <label>Маркетплейс <span class="required">*</span></label>
-            <select name="marketplace" required>
+            <select name="Маркетплейс" required>
               <option value="" disabled selected>Выберите площадку</option>
               <option value="OZON">OZON</option>
               <option value="Wildberries">Wildberries</option>
@@ -609,13 +609,13 @@
 
           <div class="form-group">
             <label>Ссылка на карточку (если есть)</label>
-            <input type="url" name="product_link" placeholder="https://" />
+            <input type="url" name="Ссылка на карточку" placeholder="https://" />
             <div class="helper-text">Чтобы изучить конкурентов и текущую версию</div>
           </div>
 
           <div class="form-group">
             <label>Ссылка на материалы (фото/брендбук/папка)</label>
-            <input type="url" name="assets_link" placeholder="https://drive.google.com/..." />
+            <input type="url" name="Ссылка на материалы" placeholder="https://drive.google.com/..." />
             <div class="helper-text">Можно ссылку на Google Drive / Яндекс.Диск / Dropbox</div>
           </div>
         </div>
@@ -628,7 +628,7 @@
 
           <div class="form-group">
             <label>Кто ваш покупатель? <span class="required">*</span></label>
-            <textarea name="target_audience" placeholder="Женщины 25-35 лет, молодые мамы, ищут качественные товары для дома" required></textarea>
+            <textarea name="Целевая аудитория" placeholder="Женщины 25-35 лет, молодые мамы, ищут качественные товары для дома" required></textarea>
           </div>
         </div>
 
@@ -640,7 +640,7 @@
 
           <div class="form-group">
             <label>Главные 3-5 преимуществ <span class="required">*</span></label>
-            <textarea name="benefits" placeholder="1. Долгая работа от батареи (до 30 часов)&#10;2. Водонепроницаемость IPX7&#10;3. Быстрая зарядка за 1 час" required></textarea>
+            <textarea name="Преимущества" placeholder="1. Долгая работа от батареи (до 30 часов)&#10;2. Водонепроницаемость IPX7&#10;3. Быстрая зарядка за 1 час" required></textarea>
           </div>
         </div>
 
@@ -652,27 +652,27 @@
 
           <div class="checkbox-grid">
             <div class="checkbox-item">
-              <input type="checkbox" id="sizes" name="show_sizes" value="Размеры" />
+              <input type="checkbox" id="sizes" name="Показать размеры" value="Да" />
               <label class="checkbox-label" for="sizes">📏 Размеры</label>
             </div>
             <div class="checkbox-item">
-              <input type="checkbox" id="material" name="show_material" value="Материал" />
+              <input type="checkbox" id="material" name="Показать материал" value="Да" />
               <label class="checkbox-label" for="material">🧵 Материал</label>
             </div>
             <div class="checkbox-item">
-              <input type="checkbox" id="package" name="show_package" value="Комплектация" />
+              <input type="checkbox" id="package" name="Показать комплектацию" value="Да" />
               <label class="checkbox-label" for="package">📦 Комплектация</label>
             </div>
             <div class="checkbox-item">
-              <input type="checkbox" id="howto" name="show_howto" value="Способ применения" />
+              <input type="checkbox" id="howto" name="Показать применение" value="Да" />
               <label class="checkbox-label" for="howto">🔧 Применение</label>
             </div>
             <div class="checkbox-item">
-              <input type="checkbox" id="cert" name="show_cert" value="Сертификаты" />
+              <input type="checkbox" id="cert" name="Показать сертификаты" value="Да" />
               <label class="checkbox-label" for="cert">✅ Сертификаты</label>
             </div>
             <div class="checkbox-item">
-              <input type="checkbox" id="price" name="show_price" value="Цена" />
+              <input type="checkbox" id="price" name="Показать цену" value="Да" />
               <label class="checkbox-label" for="price">💰 Цена/скидка</label>
             </div>
           </div>
@@ -686,7 +686,7 @@
 
           <div class="form-group">
             <label>Количество слайдов</label>
-            <select name="slides_count">
+            <select name="Количество слайдов">
               <option value="" disabled selected>Выберите количество слайдов</option>
               <option value="Посоветуйте">Посоветуйте сами</option>
               <option value="5 слайдов">5 слайдов (минимум)</option>
@@ -697,18 +697,18 @@
 
           <div class="form-group">
             <label>Конкуренты (2-3 ссылки)</label>
-            <textarea name="competitors" placeholder="https://...&#10;https://..."></textarea>
+            <textarea name="Конкуренты" placeholder="https://...&#10;https://..."></textarea>
             <div class="helper-text">Чтобы понять, как выделиться</div>
           </div>
 
           <div class="form-group">
             <label>Когда нужно запустить?</label>
-            <input type="text" name="deadline" placeholder="Через 2 недели / До 15 февраля" />
+            <input type="text" name="Срок запуска" placeholder="Через 2 недели / До 15 февраля" />
           </div>
 
           <div class="form-group">
             <label>Дополнительные пожелания</label>
-            <textarea name="additional" placeholder="Что ещё важно учесть?"></textarea>
+            <textarea name="Дополнительно" placeholder="Что ещё важно учесть?"></textarea>
           </div>
         </div>
 
