@@ -561,7 +561,7 @@
     </div>
 
     <div class="form-card">
-      <form id="briefForm">
+      <form id="briefForm" action="https://formspree.io/f/xaqdqplp" method="POST">
         <div class="form-section">
           <div class="section-title">
             <div class="section-icon">👤</div>
@@ -837,9 +837,7 @@
       }, 10);
     }
 
-    // Отправка формы прямо в Telegram (работает везде)
-    const botToken = "8520112972:AAG4cxx63_L7k9KsZFTjDVHcr06vA3i1wkk";
-    const chatId = "760962890";
+    // Отправка формы через Formspree
     let isSubmitting = false;
 
     form.addEventListener('submit', async (e) => {
@@ -855,69 +853,26 @@
 
       try {
         const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData);
 
-        const checkboxes = [];
-        ['show_sizes', 'show_material', 'show_package', 'show_howto', 'show_cert', 'show_price'].forEach(name => {
-          const el = document.querySelector(`[name="${name}"]`);
-          if (el?.checked) checkboxes.push(el.value);
-        });
-
-        const message = `🎨 НОВАЯ ЗАЯВКА НА ИНФОГРАФИКУ!
-
-👤 КОНТАКТ
-Имя: ${data.name}
-Связь: ${data.contact}
-
-📦 О ТОВАРЕ
-Товар: ${data.product_name}
-Категория: ${data.category}
-Площадка: ${data.marketplace}
-Ссылка на карточку: ${data.product_link || 'не указана'}
-Материалы: ${data.assets_link || 'не указаны'}
-
-🎯 ЦЕЛЕВАЯ АУДИТОРИЯ
-${data.target_audience}
-
-✨ ПРЕИМУЩЕСТВА
-${data.benefits}
-
-📊 ЧТО ПОКАЗАТЬ
-${checkboxes.length > 0 ? checkboxes.join(', ') : 'не указано'}
-
-📋 ДЕТАЛИ
-Слайдов: ${data.slides_count || 'не указано'}
-Сроки: ${data.deadline || 'не указаны'}
-
-🔍 КОНКУРЕНТЫ
-${data.competitors || 'не указаны'}
-
-💬 ДОПОЛНИТЕЛЬНО
-${data.additional || 'нет'}
-
-🕐 ${new Date().toLocaleString('ru-RU')}`;
-
-        // Отправка в Telegram - работает на всех устройствах
-        const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-        
-        const response = await fetch(url, {
+        const response = await fetch(e.target.action, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: chatId,
-            text: message,
-            parse_mode: 'HTML'
-          })
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
         });
 
-        const result = await response.json();
-
-        if (result.ok) {
+        if (response.ok) {
           showNotification('Заявка отправлена! Свяжемся в течение часа.');
           e.target.reset();
           updateProgress();
         } else {
-          throw new Error(result.description || 'Ошибка Telegram API');
+          const data = await response.json();
+          if (data.errors) {
+            throw new Error(data.errors.map(error => error.message).join(', '));
+          } else {
+            throw new Error('Ошибка при отправке формы');
+          }
         }
       } catch (error) {
         console.error('Ошибка:', error);
