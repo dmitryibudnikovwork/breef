@@ -561,7 +561,7 @@
     </div>
 
     <div class="form-card">
-      <form id="form" action="https://api.web3forms.com/submit" method="POST">
+      <form id="form" action="https://api.web3forms.com/submit" method="POST" accept-charset="UTF-8">
         <div class="form-section">
           <div class="section-title">
             <div class="section-icon">👤</div>
@@ -843,26 +843,32 @@
         e.preventDefault();
         const formData = new FormData(form);
         formData.append("access_key", "23ffa358-96be-423d-9c4f-520e2a7f0595");
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = "Sending...";
+        formData.append("subject", "Новая заявка на инфографику");
+        formData.append("from_name", "Форма заявки");
+        
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<span class="loading"></span>Отправка...';
         submitBtn.disabled = true;
         try {
             const response = await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
-                body: formData
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
             });
             const data = await response.json();
             if (response.ok) {
-                alert("Success! Your message has been sent.");
+                showNotification('Заявка отправлена! Свяжемся в течение часа.');
                 form.reset();
                 updateProgress();
             } else {
-                alert("Error: " + data.message);
+                showNotification('❌ Ошибка: ' + (data.message || 'Не удалось отправить'), true);
             }
         } catch (error) {
-            alert("Something went wrong. Please try again.");
+            showNotification('❌ Что-то пошло не так. Попробуйте снова.', true);
         } finally {
-            submitBtn.textContent = originalText;
+            submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
         }
     });
