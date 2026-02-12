@@ -825,6 +825,7 @@
     function showNotification(text, isError = false) {
       const notification = document.getElementById('notification');
       const textEl = document.getElementById('notificationText');
+      const iconEl = notification.querySelector('.notification-icon');
       
       // Убираем класс если был показан ранее (для сброса анимации)
       notification.classList.remove('show');
@@ -832,6 +833,7 @@
       // Небольшая задержка для перезагрузки анимации
       setTimeout(() => {
         textEl.textContent = text;
+        iconEl.textContent = isError ? '❌' : '✅';
         notification.style.background = isError 
           ? 'rgba(255, 107, 107, 0.95)' 
           : 'rgba(78, 205, 196, 0.95)';
@@ -860,6 +862,39 @@
         object.subject = "Новая заявка на инфографику";
         object.from_name = "Форма заявки";
         
+        // Добавляем русские названия полей для письма
+        const fieldLabels = {
+            'name': 'Имя',
+            'contact': 'Контакт',
+            'product_name': 'Название товара',
+            'category': 'Категория',
+            'marketplace': 'Маркетплейс',
+            'product_link': 'Ссылка на товар',
+            'materials_link': 'Ссылка на материалы',
+            'target_audience': 'Целевая аудитория',
+            'advantages': 'Преимущества',
+            'show_sizes': 'Показать размеры',
+            'show_material': 'Показать материал',
+            'show_package': 'Показать комплектацию',
+            'show_usage': 'Показать применение',
+            'show_certificates': 'Показать сертификаты',
+            'show_price': 'Показать цену',
+            'slides_count': 'Количество слайдов',
+            'competitors_link': 'Конкуренты (ссылки)',
+            'deadline': 'Срок запуска',
+            'additional_notes': 'Дополнительно'
+        };
+        
+        // Создаем красиво форматированное сообщение
+        let emailBody = '';
+        for (const [key, value] of Object.entries(object)) {
+            if (key !== 'access_key' && key !== 'subject' && key !== 'from_name' && value) {
+                const label = fieldLabels[key] || key;
+                emailBody += `${label}: ${value}\n\n`;
+            }
+        }
+        object.message = emailBody;
+        
         console.log('Sending data:', object);
         
         const originalText = submitBtn.innerHTML;
@@ -880,15 +915,15 @@
             console.log('Response:', data);
             
             if (data.success) {
-                showNotification('✅ Заявка отправлена! Свяжемся в течение часа.');
+                showNotification('Заявка отправлена! Свяжемся в течение часа.');
                 form.reset();
                 updateProgress();
             } else {
-                showNotification('❌ Ошибка: ' + (data.message || 'Не удалось отправить'), true);
+                showNotification('Ошибка: ' + (data.message || 'Не удалось отправить'), true);
             }
         } catch (error) {
             console.error('Error:', error);
-            showNotification('❌ Что-то пошло не так. Попробуйте снова.', true);
+            showNotification('Что-то пошло не так. Попробуйте снова.', true);
         } finally {
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
